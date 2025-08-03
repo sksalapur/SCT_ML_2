@@ -1,0 +1,23 @@
+DATASET INFORMATION
+==================================================
+
+Shape: (200, 5)
+Columns: ['CustomerID', 'Gender', 'Age', 'Annual Income (k$)', 'Spending Score (1-100)']
+
+Statistical Summary:
+       CustomerID         Age  Annual Income (k$)  Spending Score (1-100)
+count  200.000000  200.000000           200.00000              200.000000
+mean   100.500000   35.525000            64.99000               51.475000
+std     57.879185   10.859976            24.82218               23.147753
+min      1.000000   18.000000            15.00000                1.000000
+25%     50.750000   26.750000            46.75000               35.000000
+50%    100.500000   35.500000            65.50000               52.000000
+75%    150.250000   42.250000            82.00000               67.000000
+max    200.000000   70.000000           140.00000               99.000000
+
+Missing Values:
+CustomerID                0
+Gender                    0
+Age                       0
+Annual Income (k$)        0
+Spending Score (1-100)    0
