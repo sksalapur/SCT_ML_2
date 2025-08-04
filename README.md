@@ -1,6 +1,16 @@
 # Customer Segmentation using K-Means Clustering 🛍️
 
-This project implements a comprehensive K-Means clustering algorithm to segment retail store customers based on their purchase history using the Mall Customer Segmentation dataset.
+This project implements a comprehensive K-Means clustering algorithm to segment retail store customers with an **interactive Streamlit web application**. Perfect for demonstrating machine learning capabilities with real-time user interaction.
+
+## 🌐 **Interactive Web Dashboard**
+🚀 **[Launch Live Demo](https://your-app-url.streamlit.app)** *(Deploy using instructions in DEPLOYMENT.md)*
+
+### 🎛️ **User Input Features**
+- **Dataset Configuration**: Adjust customer count, age range, income range, spending patterns
+- **Clustering Parameters**: Select features, auto-detect optimal K, or set manually
+- **Analysis Options**: Toggle data views, statistics, and correlation matrices
+- **Real-time Generation**: Create custom synthetic datasets with configurable parameters
+- **Export Results**: Download clustered data, cluster centers, and analysis reports
 
 ## 🎯 Project Overview
 
@@ -12,6 +22,15 @@ The goal is to identify distinct customer segments that can help businesses:
 
 ## 📊 Features
 
+### 🌐 **Interactive Streamlit Dashboard**
+- **Real-time Parameter Control**: Sliders and inputs for dataset generation
+- **Dynamic Visualizations**: Interactive Plotly charts with hover information
+- **Flexible Feature Selection**: Choose which customer attributes to analyze
+- **Automatic Optimization**: AI-powered optimal cluster detection
+- **Business Intelligence**: Auto-generated insights and recommendations
+- **Multi-format Export**: Download results as CSV, TXT, and analysis reports
+
+### 🤖 **Core ML Features**
 - **Auto-Saving Results**: All analysis results automatically saved to `analysis_results/` directory (overwrites previous runs since results are deterministic)
 - **Data Loading & Exploration**: Comprehensive data analysis and visualization
 - **Feature Normalization**: Standardization of numeric features for optimal clustering
