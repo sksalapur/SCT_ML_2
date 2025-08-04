@@ -63,6 +63,65 @@ st.markdown("""
     
     .stSelectbox > div > div {
         background-color: #f0f2f6;
+        color: #262730;
+    }
+    
+    .stSelectbox > div > div > div {
+        color: #262730;
+    }
+    
+    .stSelectbox [data-baseweb="select"] {
+        background-color: #ffffff;
+    }
+    
+    .stSelectbox [data-baseweb="select"] > div {
+        color: #262730 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Fix multiselect visibility */
+    .stMultiSelect > div > div {
+        background-color: #ffffff;
+        color: #262730;
+    }
+    
+    .stMultiSelect [data-baseweb="select"] > div {
+        color: #262730 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Fix number input visibility */
+    .stNumberInput > div > div > input {
+        color: #262730 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Fix slider labels */
+    .stSlider > div > div > div > div {
+        color: #262730 !important;
+    }
+    
+    /* Ensure dropdown options are visible */
+    .stSelectbox [data-baseweb="popover"] {
+        background-color: #ffffff !important;
+    }
+    
+    .stSelectbox [role="option"] {
+        color: #262730 !important;
+        background-color: #ffffff !important;
+    }
+    
+    .stSelectbox [role="option"]:hover {
+        background-color: #f0f2f6 !important;
+        color: #262730 !important;
+    }
+    
+    /* Fix sidebar form elements */
+    .sidebar .stSelectbox > div > div {
+        background-color: #ffffff !important;
+        color: #262730 !important;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -92,7 +151,7 @@ def generate_synthetic_data(n_customers, income_range, age_range, spending_patte
     for income in incomes:
         if spending_patterns == "Realistic (Income-based)":
             # Realistic pattern: higher income tends to higher spending
-            if income < income_range[0] + (income_range[1] - income_range[0]) * 0.3:
+            if income < income_range[0] + (income_range[1] - income_range[0]) * 0.4:
                 score = np.random.uniform(10, 50)  # Low income, conservative spending
             elif income < income_range[0] + (income_range[1] - income_range[0]) * 0.7:
                 score = np.random.uniform(30, 70)  # Medium income, varied spending
@@ -119,7 +178,7 @@ def generate_synthetic_data(n_customers, income_range, age_range, spending_patte
         'CustomerID': customer_ids,
         'Gender': genders,
         'Age': ages,
-        'Annual Income (k$)': incomes,
+        'Annual Income (₹ Lakhs)': incomes,
         'Spending Score (1-100)': spending_scores
     })
     
@@ -280,15 +339,25 @@ def main():
                                  value=(20, 70), step=1,
                                  help="Minimum and maximum age of customers")
     
-    income_range = st.sidebar.slider("Annual Income Range (k$)", 
-                                    min_value=15, max_value=200, 
-                                    value=(20, 140), step=5,
-                                    help="Minimum and maximum annual income")
+    income_range = st.sidebar.slider("Annual Income Range (₹ Lakhs)", 
+                                    min_value=2, max_value=50, 
+                                    value=(3, 25), step=1,
+                                    help="Minimum and maximum annual income in lakhs")
     
     spending_patterns = st.sidebar.selectbox("Spending Behavior Pattern",
                                            ["Realistic (Income-based)", "Random", 
                                             "Conservative", "High Spenders", "Mixed"],
                                            help="Choose how spending scores relate to income")
+    
+    # Add custom styling to ensure text is visible
+    st.sidebar.markdown("""
+    <style>
+    .stSelectbox > label {
+        color: #262730 !important;
+        font-weight: bold;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     random_seed = st.sidebar.number_input("Random Seed", 
                                          min_value=1, max_value=999, 
@@ -298,10 +367,10 @@ def main():
     # Clustering Parameters
     st.sidebar.subheader("🎯 Clustering Configuration")
     
-    available_features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
+    available_features = ['Age', 'Annual Income (₹ Lakhs)', 'Spending Score (1-100)']
     selected_features = st.sidebar.multiselect("Features for Clustering",
                                               available_features,
-                                              default=['Annual Income (k$)', 'Spending Score (1-100)'],
+                                              default=['Annual Income (₹ Lakhs)', 'Spending Score (1-100)'],
                                               help="Select which features to use for clustering")
     
     if len(selected_features) < 2:
@@ -414,11 +483,11 @@ def main():
         ''', unsafe_allow_html=True)
     
     with col3:
-        avg_income = data['Annual Income (k$)'].mean()
+        avg_income = data['Annual Income (₹ Lakhs)'].mean()
         st.markdown(f'''
         <div class="metric-card">
             <h3>💰 Avg Income</h3>
-            <h2>${avg_income:.0f}k</h2>
+            <h2>₹{avg_income:.1f}L</h2>
         </div>
         ''', unsafe_allow_html=True)
     
@@ -538,8 +607,8 @@ def main():
             with col2:
                 st.write("**📈 Average Values:**")
                 for feature, value in analysis['Means'].items():
-                    if feature in ['Annual Income (k$)']:
-                        st.write(f"- {feature}: ${value:.0f}k")
+                    if feature in ['Annual Income (₹ Lakhs)']:
+                        st.write(f"- {feature}: ₹{value:.1f} Lakhs")
                     elif feature in ['Spending Score (1-100)']:
                         st.write(f"- {feature}: {value:.0f}/100")
                     else:
@@ -550,8 +619,8 @@ def main():
             
             characteristics = analysis['Characteristics']
             
-            if 'Annual Income (k$)' in characteristics and 'Spending Score (1-100)' in characteristics:
-                income_level = characteristics['Annual Income (k$)']
+            if 'Annual Income (₹ Lakhs)' in characteristics and 'Spending Score (1-100)' in characteristics:
+                income_level = characteristics['Annual Income (₹ Lakhs)']
                 spending_level = characteristics['Spending Score (1-100)']
                 
                 if income_level == "High" and spending_level == "High":
@@ -599,7 +668,7 @@ Customer Segmentation Analysis Report
 Dataset Configuration:
 - Number of customers: {n_customers}
 - Age range: {age_range[0]}-{age_range[1]} years
-- Income range: ${income_range[0]}k-${income_range[1]}k
+- Income range: ₹{income_range[0]}L-₹{income_range[1]}L
 - Spending pattern: {spending_patterns}
 
 Clustering Results:

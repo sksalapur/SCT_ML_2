@@ -2,7 +2,7 @@ CUSTOMER SEGMENTATION ANALYSIS - FINAL SUMMARY
 ============================================================
 
 EXECUTION DETAILS:
-Analysis Date: 2025-08-04 00:05:40
+Analysis Date: 2025-08-04 22:55:30
 Results Directory: analysis_results
 
 DATASET OVERVIEW:
@@ -10,15 +10,16 @@ DATASET OVERVIEW:
 • Dataset Shape: (200, 6)
 
 CLUSTERING RESULTS:
-• Optimal K: 4
-• Final Silhouette Score: 0.404
-• WCSS (Inertia): 110.05
+• Optimal K: 5
+• Final Silhouette Score: 0.435
+• WCSS (Inertia): 74.46
 
 CLUSTER DISTRIBUTION:
-• Cluster 0:  39 customers ( 19.5%)
+• Cluster 0:  21 customers ( 10.5%)
 • Cluster 1:  44 customers ( 22.0%)
-• Cluster 2:  78 customers ( 39.0%)
-• Cluster 3:  39 customers ( 19.5%)
+• Cluster 2:  55 customers ( 27.5%)
+• Cluster 3:  48 customers ( 24.0%)
+• Cluster 4:  32 customers ( 16.0%)
 
 GENERATED FILES:
 • Dataset Info: dataset_info.txt
@@ -32,7 +33,7 @@ GENERATED FILES:
 
 KEY INSIGHTS:
 • Income and spending behavior show clear segmentation patterns
-• 4 distinct customer personas identified
+• 5 distinct customer personas identified
 • Each cluster requires different marketing approaches
 • Opportunity for targeted product recommendations
 

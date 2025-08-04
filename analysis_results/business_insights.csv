@@ -1,5 +1,6 @@
 cluster_id,name,description,size,percentage,avg_income,avg_spending,strategies
-0,🌟 Premium Customers,"High income, high spending customers",39,19.5,91.33333333333333,80.02564102564102,[]
-1,💰 Budget-Conscious Customers,"Lower income, conservative spending",44,22.0,37.09090909090909,24.818181818181817,[]
-2,⚠️ Budget Enthusiasts,Moderate income but high spending tendency,78,39.0,56.84615384615385,60.782051282051285,[]
-3,🎯 Conservative High-Income,High income but conservative spending habits,39,19.5,86.41025641025641,34.38461538461539,[]
+0,🌟 Premium Customers,"High income, high spending customers",21,10.5,20.428571428571427,32.80952380952381,[]
+1,💰 Budget-Conscious Customers,"Lower income, conservative spending",44,22.0,17.34090909090909,79.72727272727273,[]
+2,⚠️ Budget Enthusiasts,Moderate income but high spending tendency,55,27.500000000000004,12.345454545454546,48.8,[]
+3,🎯 Conservative High-Income,High income but conservative spending habits,48,24.0,5.833333333333333,20.395833333333332,[]
+4,Cluster 4,General cluster,32,16.0,7.65625,70.1875,[]

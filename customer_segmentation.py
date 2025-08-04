@@ -2,7 +2,14 @@
 K-Means Customer Segmentation Analysis
 =====================================
 
-This script implements K-Means clustering to segment retail store customers
+This script implements K-Means clustering to segment retail store        # Create DataFrame
+        data = pd.DataFrame({
+            'CustomerID': customer_ids,
+            'Gender': genders,
+            'Age': ages,
+            'Annual Income (₹ Lakhs)': incomes,
+            'Spending Score (1-100)': spending_scores
+        })rs
 based on their purchase history using the Mall Customer Segmentation Dataset.
 
 Features:
@@ -121,27 +128,27 @@ class CustomerSegmentation:
         ages = np.random.normal(35, 12, n_customers)
         ages = np.clip(ages, 18, 70).astype(int)
         
-        # Annual Income (20k-140k, with some correlation to age)
-        base_income = np.random.normal(60, 25, n_customers)
+        # Annual Income (3L-25L, with some correlation to age)
+        base_income = np.random.normal(10, 6, n_customers)
         age_factor = (ages - 18) / 52  # Normalize age to 0-1
-        income_adjustment = age_factor * 20  # Older people tend to earn more
+        income_adjustment = age_factor * 8  # Older people tend to earn more
         annual_income = base_income + income_adjustment
-        annual_income = np.clip(annual_income, 15, 140).astype(int)
+        annual_income = np.clip(annual_income, 3, 25).astype(int)
         
         # Spending Score (1-100, with various patterns)
         spending_scores = []
         for i in range(n_customers):
-            if annual_income[i] < 40:  # Low income
+            if annual_income[i] < 8:  # Low income (< 8 lakhs)
                 if np.random.random() < 0.7:  # 70% low spenders
                     score = np.random.uniform(1, 40)
                 else:  # 30% high spenders (splurgers)
                     score = np.random.uniform(60, 100)
-            elif annual_income[i] < 80:  # Medium income
+            elif annual_income[i] < 15:  # Medium income (8-15 lakhs)
                 if np.random.random() < 0.5:  # 50% average spenders
                     score = np.random.uniform(30, 70)
                 else:  # 50% varied
                     score = np.random.uniform(10, 90)
-            else:  # High income
+            else:  # High income (> 15 lakhs)
                 if np.random.random() < 0.4:  # 40% conservative spenders
                     score = np.random.uniform(10, 50)
                 else:  # 60% high spenders
@@ -154,7 +161,7 @@ class CustomerSegmentation:
             'CustomerID': customer_ids,
             'Gender': genders,
             'Age': ages,
-            'Annual Income (k$)': annual_income,
+            'Annual Income (₹ Lakhs)': annual_income,
             'Spending Score (1-100)': spending_scores
         })
         
@@ -467,7 +474,7 @@ class CustomerSegmentation:
                 'Count': len(cluster_data),
                 'Percentage': len(cluster_data)/len(self.data)*100,
                 'Avg_Age': cluster_data['Age'].mean() if 'Age' in cluster_data.columns else 0,
-                'Avg_Income': cluster_data['Annual Income (k$)'].mean(),
+                'Avg_Income': cluster_data['Annual Income (₹ Lakhs)'].mean(),
                 'Avg_Spending': cluster_data['Spending Score (1-100)'].mean(),
                 'Gender_Female_%': (cluster_data['Gender'] == 'Female').sum() / len(cluster_data) * 100 if 'Gender' in cluster_data.columns else 0
             }
@@ -683,8 +690,8 @@ class CustomerSegmentation:
             print(f"   💼 Business Recommendations:")
             
             # Custom recommendations based on common business scenarios
-            if 'Annual Income (k$)' in characteristics and 'Spending Score (1-100)' in characteristics:
-                income_level = characteristics['Annual Income (k$)'][0]
+            if 'Annual Income (₹ Lakhs)' in characteristics and 'Spending Score (1-100)' in characteristics:
+                income_level = characteristics['Annual Income (₹ Lakhs)'][0]
                 spending_level = characteristics['Spending Score (1-100)'][0]
                 
                 if income_level == "High" and spending_level == "High":
@@ -734,7 +741,7 @@ class CustomerSegmentation:
                 'description': insight['description'],
                 'size': len(cluster_data),
                 'percentage': len(cluster_data)/len(self.data)*100,
-                'avg_income': cluster_data['Annual Income (k$)'].mean() if 'Annual Income (k$)' in cluster_data.columns else 0,
+                'avg_income': cluster_data['Annual Income (₹ Lakhs)'].mean() if 'Annual Income (₹ Lakhs)' in cluster_data.columns else 0,
                 'avg_spending': cluster_data['Spending Score (1-100)'].mean() if 'Spending Score (1-100)' in cluster_data.columns else 0,
                 'strategies': []
             }
@@ -826,7 +833,7 @@ Project completed successfully! ✨
         if self.results['cluster_analysis']:
             for cluster_info in self.results['cluster_analysis']:
                 print(f"   • Cluster {cluster_info['Cluster']}: {cluster_info['Count']} customers ({cluster_info['Percentage']:.1f}%)")
-                print(f"     Income: ${cluster_info['Avg_Income']:.0f}k | Spending: {cluster_info['Avg_Spending']:.0f}")
+                print(f"     Income: ₹{cluster_info['Avg_Income']:.0f}L | Spending: {cluster_info['Avg_Spending']:.0f}")
 
         print(f"\n💡 BUSINESS SEGMENTS:")
         if self.results['business_insights']:
@@ -867,7 +874,7 @@ def main():
     
     # Define features for clustering
     # Typical features in Mall Customer Segmentation Data
-    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    features = ['Annual Income (₹ Lakhs)', 'Spending Score (1-100)']
     
     # Check if features exist, if not, use available numeric features
     available_features = [col for col in features if col in segmentation.data.columns]
